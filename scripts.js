@@ -105,13 +105,19 @@ function updateAllWeather(url) {
 function displayCurrentWeather(data) {
     const locationName = document.querySelector('#locationName');
     const weatherIcon = document.querySelector('#weatherIcon');
-    weatherIcon.classList.remove('skeleton-icon');
-    weatherIcon.style.opacity = '1';
+    weatherIcon.style.opacity = '0'; 
+    weatherIcon.classList.add('skeleton-icon'); 
+    
     locationName.classList.remove('skeleton');
     locationName.textContent = data.name;
 
     let icon = data.weather[0].icon;
     weatherIcon.src = ICONURL + '/' + icon + '@2x.png';
+    weatherIcon.onload = function() {
+        weatherIcon.classList.remove('skeleton-icon');
+        weatherIcon.style.transition = 'opacity 0.4s ease';
+        weatherIcon.style.opacity = '1';
+    };
     document.querySelector('#realFeel').textContent = Math.round(data.main.feels_like);
     document.querySelector('#temperature').innerHTML = Math.round(data.main.temp) + ' &#8451;';
     
@@ -119,16 +125,18 @@ function displayCurrentWeather(data) {
     let sunset = new Date(data.sys.sunset * 1000);
     document.querySelector('#sunRise').textContent = sunrise.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     document.querySelector('#sunSet').textContent = sunset.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    
     const now = new Date();
     const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
     const cityTimeMs = utc + (data.timezone * 1000);
     const dateOptions = { timeZone: 'UTC', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    
     let diffMs = sunset - sunrise;
     let hours = Math.floor(diffMs / (1000 * 60 * 60));
     let minutes = Math.floor((diffMs / (1000 * 60)) % 60);
     document.getElementById('duration').textContent = hours + 'h ' + minutes + 'm';
     document.querySelector('#currentDate').textContent = new Date(cityTimeMs).toLocaleDateString('us-US', dateOptions); 
-}  
+}
 
 //render today hourly
 function renderTodayHourly(list) {
