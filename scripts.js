@@ -226,6 +226,21 @@ function getNearbyWeather(lat, lon) {
             });
         });
 }
+//click nearby city
+    document.getElementById("nearbyGrid").addEventListener("click", function (e) {
+        const cityCard = e.target.closest(".city-card");
+        if (cityCard) {
+            const cityName = cityCard.querySelector(".city-name").textContent;
+            document.querySelector("#searchBox").value = cityName;
+            updateAllWeather(`${APIURL}/weather?q=${cityName}&appid=${APPID}&units=metric`);
+        }
+        const placeItem = e.target.closest(".place-item");
+        if (placeItem) {
+            const cityName = placeItem.querySelector(".place-name").textContent;
+            document.querySelector("#searchBox").value = cityName;
+            updateAllWeather(`${APIURL}/weather?q=${cityName}&appid=${APPID}&units=metric`);
+        }
+    });
 //get forecast
 function getForecast(lat, lon) {
     let url = APIURL + '/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APPID + '&units=metric';
