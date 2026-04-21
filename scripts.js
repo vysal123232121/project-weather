@@ -192,7 +192,6 @@ function renderTodayHourly(list) {
 //get nearby weather
 function getNearbyWeather(lat, lon) {
     const findUrl = `${APIURL}/find?lat=${lat}&lon=${lon}&cnt=10&units=metric&appid=${APPID}`;
-
     fetch(findUrl)
         .then(response => response.json())
         .then(data => {
