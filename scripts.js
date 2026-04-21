@@ -123,8 +123,8 @@ function displayCurrentWeather(data) {
     
     let sunrise = new Date(data.sys.sunrise * 1000);
     let sunset = new Date(data.sys.sunset * 1000);
-    document.querySelector('#sunRise').textContent = sunrise.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    document.querySelector('#sunSet').textContent = sunset.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    document.querySelector('#sunRise').textContent = sunrise.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true});
+    document.querySelector('#sunSet').textContent = sunset.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true });
     
     const now = new Date();
     const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
