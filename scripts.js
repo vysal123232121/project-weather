@@ -135,7 +135,7 @@ function displayCurrentWeather(data) {
     let hours = Math.floor(diffMs / (1000 * 60 * 60));
     let minutes = Math.floor((diffMs / (1000 * 60)) % 60);
     document.getElementById('duration').textContent = hours + 'h ' + minutes + 'm';
-    document.querySelector('#currentDate').textContent = new Date(cityTimeMs).toLocaleDateString('us-US', dateOptions); 
+    document.querySelector('#currentDate').textContent = new Date(cityTimeMs).toLocaleDateString('en-US', dateOptions); 
 }
 
 //render today hourly
